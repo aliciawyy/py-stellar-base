@@ -8,7 +8,7 @@ def create_keypair_determinist_english():
         'fit cave bargain toe'
     )
     key_pair = Keypair.deterministic(mnemonic, index=21)
-    public_key = key_pair.address().decode()
+    public_key = key_pair.address_str
     print("Public key / Account address:\n", public_key)
     print("Seed / Your secret to keep it on local:\n",
           key_pair.seed().decode())

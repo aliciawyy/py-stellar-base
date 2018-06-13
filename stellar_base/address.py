@@ -20,8 +20,6 @@ class Address(object):
 
     :param str address: The address string that represents this
         :class:`Address`.
-    :param str secret: The secret seed string that is used to derive the
-        address for this :class:`Address`.
     :param str network: The network to connect to for verifying and retrieving
         additional attributes from. Must be either 'PUBLIC' or 'TESTNET'.
     :param Horizon horizon: The :class:`Horizon` instance to use for
@@ -31,21 +29,10 @@ class Address(object):
     """
 
     # TODO: Make network an enum
-    def __init__(
-            self, address=None, secret=None, network='TESTNET', horizon=None):
-        if address is None and secret is None:
-            # FIXME: Throw a better exception
-            raise Exception('oops,need a stellar address or secret')
-        if address is None and secret is not None:
-            self.address = Keypair.from_seed(secret).address().decode()
-        else:
-            self.address = address
-        self.secret = secret
+    def __init__(self, address=None, network="TESTNET", horizon=None):
+        self.address = address
+        self.network = network.upper()
 
-        if network.upper() != 'PUBLIC':
-            self.network = 'TESTNET'
-        else:
-            self.network = 'PUBLIC'
         if horizon:
             if isinstance(horizon, Horizon):
                 self.horizon = horizon
@@ -63,6 +50,13 @@ class Address(object):
         self.flags = None
         self.signers = None
         self.data = None
+
+    @classmethod
+    def from_secret(cls, secret, network="TESTNET", horizon=None):
+        return cls(
+            Keypair.from_seed(secret).address_str, network=network,
+            horizon=horizon
+        )
 
     def get(self):
         """Retrieve the account data that corresponds to this :class:`Address`.

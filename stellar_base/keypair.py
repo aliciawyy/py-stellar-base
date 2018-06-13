@@ -206,6 +206,10 @@ class Keypair(object):
         """
         return encode_check('account', self.raw_public_key())
 
+    @property
+    def address_str(self):
+        return self.address().decode()
+
     def seed(self):
         """Get the secret seed encoded as a strkey.
 
