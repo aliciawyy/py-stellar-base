@@ -1,0 +1,8 @@
+ed25519==1.4
+crc16==0.1.1
+requests==2.19.0
+SSEClient==0.0.19
+numpy==1.14.5
+toml==0.9.4
+mnemonic==0.18
+six==1.11.0
