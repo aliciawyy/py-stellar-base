@@ -70,7 +70,7 @@ class Keypair(object):
             This allows for multiple Keypairs to be derived from the same
             mnemonic, such as::
 
-                >>> from stellar_base.keypair import Keypair
+                >>> from stellar_base import Keypair
                 >>> m = 'hello world'  # Don't use this mnemonic in practice.
                 >>> kp1 = Keypair.deterministic(m, lang='english', index=0)
                 >>> kp2 = Keypair.deterministic(m, lang='english', index=1)
