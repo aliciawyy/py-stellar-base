@@ -1,4 +1,5 @@
 # coding:utf-8
+from __future__ import division
 import sys
 import decimal
 import mock
@@ -142,8 +143,7 @@ def test_operation(name, operation):
     restored = dict(operation_restored.__dict__)
     restored.pop("body")
     if name == 'manage_offer_dict_price':
-        original['price'] = float(original['price']['n']) / float(
-            original['price']['d'])
+        original['price'] = original['price']['n'] / original['price']['d']
     if name == 'manage_data':  # return `bytes` now
         if not isinstance(original['data_value'], bytes):
             original['data_value'] = bytes(original['data_value'], 'utf-8')
@@ -164,7 +164,8 @@ def test_manage_data_too_long_raises():
 
 
 def test_manage_offer_dict_price_raises():
-    msg = "You need pass `price` params as `digit` or `{'n': numerator, 'd': denominator}`"
+    msg = "You need pass `price` params as `digit` or `{'n':" \
+          " numerator, 'd': denominator}`"
     with pytest.raises(ValueError, match=msg):
         ManageOffer(
             selling=Asset('beer', SOURCE),

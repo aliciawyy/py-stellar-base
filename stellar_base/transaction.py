@@ -70,16 +70,14 @@ class Transaction(object):
         self.memo = memo or NoneMemo()
         self.fee = int(fee) if fee else self.default_fee
         self.operations = operations or []
-        # self.time_bounds = [time_bounds['minTime'],
-        #                     time_bounds['maxTime']] if time_bounds else []
-        if time_bounds is None:
+
+        if isinstance(time_bounds, dict):
+            self.time_bounds = [TimeBounds(**time_bounds)]
+        elif time_bounds is None:
             self.time_bounds = []
         else:
-            if not isinstance(time_bounds, dict):
-                raise ValueError("time_bounds should be a dict that contains "
-                                 "minTime and maxTime fields")
-            self.time_bounds = [TimeBounds(minTime=time_bounds['minTime'],
-                                           maxTime=time_bounds['maxTime'])]
+            raise ValueError("time_bounds should be a dict that contains"
+                             " minTime and maxTime fields")
 
     def add_operation(self, operation):
         """Add an :class:`Operation <stellar_base.operation.Operation>` to

@@ -259,13 +259,10 @@ def is_valid_secret_key(key):
 
 
 def convert_hex_to_bytes(value):
-    # Not perfect but works on Python2 and Python3
-    if len is None:
-        raise ValueError("Value should be 32 byte hash or hex encoded string, but got None")
     length = len(value)
     if length == 32:
         return value
     elif length == 64:
         return binascii.unhexlify(value)
-    else:
-        raise ValueError("Value should be 32 byte hash or hex encoded string, but got {}".format(value))
+    raise ValueError("Value should be 32 byte hash or hex encoded "
+                     "string, but got {}".format(value))

@@ -1,6 +1,6 @@
 # encoding: utf-8
 from stellar_base.keypair import Keypair
-from stellar_base.operation import *
+from stellar_base.operation import Payment, Asset
 from stellar_base.horizon import Horizon
 from stellar_base.transaction import Transaction
 from stellar_base.transaction_envelope import TransactionEnvelope as Te
